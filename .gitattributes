@@ -1,0 +1,10 @@
+* text=auto eol=lf
+
+*.py text diff=py
+*.ipynb text diff=ipynb
+
+*.md text diff=markdown eol=crlf
+*.txt text diff=text
+
+.gitignore text diff=gitignore
+.gitattributes text diff=gitattributes
