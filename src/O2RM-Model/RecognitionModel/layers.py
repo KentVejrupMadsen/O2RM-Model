@@ -13,11 +13,11 @@ from setup.output \
 
 
 def create_new_model(
-    width: int = 256,
-    height: int = 256,
+    width: int = 512,
+    height: int = 512,
     channels: int = 3,
-    number_of_categories: int = 4,
-    variation: int = 512
+    number_of_categories: int = 10,
+    variation: int = 1024
 ):
     model_layers: list = list()
 
@@ -50,3 +50,6 @@ def create_new_model(
     )
 
     return model
+
+
+create_new_model().summary()

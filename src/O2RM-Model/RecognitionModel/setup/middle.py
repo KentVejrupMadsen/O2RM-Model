@@ -10,30 +10,40 @@ def middle_layers(
 ) -> list:
     r: list = list()
 
-    for l in middle_layer_0ed(
+    for layer in middle_layer_0ed(
         channels
     ):
-        r.append(l)
+        r.append(
+            layer
+        )
 
-    for l in middle_layer_1st(
+    for layer in middle_layer_1st(
         channels
     ):
-        r.append(l)
+        r.append(
+            layer
+        )
 
-    for l in middle_layer_2nd(
+    for layer in middle_layer_2nd(
          channels
     ):
-        r.append(l)
+        r.append(
+            layer
+        )
 
-    for l in middle_layer_3rd(
+    for layer in middle_layer_3rd(
          channels
     ):
-        r.append(l)
+        r.append(
+            layer
+        )
 
-    for l in middle_layer_4th(
+    for layer in middle_layer_4th(
          channels
     ):
-        r.append(l)
+        r.append(
+            layer
+        )
 
     return r
 
@@ -46,7 +56,7 @@ def middle_layer_0ed(
     for i in range(4):
         r.append(
             Conv2D(
-                16,
+                4,
                 channels,
                 padding='same',
                 activation='relu'
@@ -71,7 +81,7 @@ def middle_layer_1st(
     for i in range(4):
         r.append(
             Conv2D(
-                32,
+                8,
                 channels,
                 padding='same',
                 activation='relu'
@@ -96,7 +106,7 @@ def middle_layer_2nd(
     for i in range(4):
         r.append(
             Conv2D(
-                64,
+                16,
                 channels,
                 padding='same',
                 activation='relu'
@@ -121,7 +131,7 @@ def middle_layer_3rd(
     for i in range(4):
         r.append(
             Conv2D(
-                128,
+                32,
                 channels,
                 padding='same',
                 activation='relu'

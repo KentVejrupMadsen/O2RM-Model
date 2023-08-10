@@ -6,8 +6,8 @@ from keras.layers   \
 
 
 def output_layer(
-    classes: int = 10,
-    variation: int = 256
+    classes: int,
+    variation: int
 ) -> list:
     r: list = list()
 

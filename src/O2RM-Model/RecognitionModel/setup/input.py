@@ -7,9 +7,9 @@ from keras.layers   \
 
 
 def input_layer(
-    width: int = 256,
-    height: int = 256,
-    channels: int = 3,
+    width: int,
+    height: int,
+    channels: int,
     scale_by: float = 1.0/127.5,
     offset: float = -1.0
 ) -> list:
@@ -27,15 +27,15 @@ def input_layer(
         )
     )
 
-    r.append(
-        Conv2D(
-            4,
-            channels,
-            padding='same',
-            activation='relu',
-            use_bias=False,
+    for i in range(4):
+        r.append(
+            Conv2D(
+                2,
+                channels,
+                padding='same',
+                activation='relu',
+            )
         )
-    )
 
     r.append(
         MaxPooling2D(
