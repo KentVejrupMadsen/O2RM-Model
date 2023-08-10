@@ -1,3 +1,4 @@
+#/usr/bin/python
 class Interface:
     def __init__(self):
         pass
