@@ -43,14 +43,15 @@ def middle_layer_0ed(
 ) -> list:
     r: list = list()
 
-    r.append(
-        Conv2D(
-            2,
-            channels,
-            padding='same',
-            activation='relu'
+    for i in range(4):
+        r.append(
+            Conv2D(
+                16,
+                channels,
+                padding='same',
+                activation='relu'
+            )
         )
-    )
 
     r.append(
         MaxPooling2D(
@@ -67,14 +68,15 @@ def middle_layer_1st(
 ) -> list:
     r: list = list()
 
-    r.append(
-        Conv2D(
-            2,
-            channels,
-            padding='same',
-            activation='relu'
+    for i in range(4):
+        r.append(
+            Conv2D(
+                32,
+                channels,
+                padding='same',
+                activation='relu'
+            )
         )
-    )
 
     r.append(
         MaxPooling2D(
@@ -91,14 +93,15 @@ def middle_layer_2nd(
 ) -> list:
     r: list = list()
 
-    r.append(
-        Conv2D(
-            2,
-            channels,
-            padding='same',
-            activation='relu'
+    for i in range(4):
+        r.append(
+            Conv2D(
+                64,
+                channels,
+                padding='same',
+                activation='relu'
+            )
         )
-    )
 
     r.append(
         MaxPooling2D(
@@ -115,14 +118,15 @@ def middle_layer_3rd(
 ) -> list:
     r: list = list()
 
-    r.append(
-        Conv2D(
-            2,
-            channels,
-            padding='same',
-            activation='relu'
+    for i in range(4):
+        r.append(
+            Conv2D(
+                128,
+                channels,
+                padding='same',
+                activation='relu'
+            )
         )
-    )
 
     r.append(
         MaxPooling2D(
@@ -139,14 +143,15 @@ def middle_layer_4th(
 ) -> list:
     r: list = list()
 
-    r.append(
-        Conv2D(
-            2,
-            channels,
-            padding='same',
-            activation='relu'
+    for i in range(2):
+        r.append(
+            Conv2D(
+                256,
+                channels,
+                padding='same',
+                activation='relu'
+            )
         )
-    )
 
     r.append(
         MaxPooling2D(

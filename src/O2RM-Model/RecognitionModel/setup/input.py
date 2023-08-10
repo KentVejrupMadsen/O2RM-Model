@@ -7,10 +7,11 @@ from keras.layers   \
 
 
 def input_layer(
-    width: int = 32,
-    height: int = 32,
+    width: int = 256,
+    height: int = 256,
     channels: int = 3,
-    scale_by: float = 1.0/255
+    scale_by: float = 1.0/127.5,
+    offset: float = -1.0
 ) -> list:
     r: list = list()
 
@@ -21,16 +22,18 @@ def input_layer(
                 height,
                 width,
                 channels
-            )
+            ),
+            offset=offset
         )
     )
 
     r.append(
         Conv2D(
-            64,
+            4,
             channels,
             padding='same',
-            activation='relu'
+            activation='relu',
+            use_bias=False,
         )
     )
 
