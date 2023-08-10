@@ -153,10 +153,10 @@ def middle_layer_4th(
 ) -> list:
     r: list = list()
 
-    for i in range(2):
+    for i in range(4):
         r.append(
             Conv2D(
-                256,
+                64,
                 channels,
                 padding='same',
                 activation='relu'

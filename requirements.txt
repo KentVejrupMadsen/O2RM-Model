@@ -2,3 +2,4 @@ wheel
 tensorflow
 keras
 wandb
+pillow
