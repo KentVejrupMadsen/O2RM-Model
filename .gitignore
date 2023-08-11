@@ -1,5 +1,8 @@
+wandb/*
+
 .venv/*
 .venv.*
+
 
 .idea/*
 

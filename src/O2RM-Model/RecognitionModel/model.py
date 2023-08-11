@@ -1,9 +1,103 @@
+from keras.models \
+    import Sequential \
+    as KerasModel
+
+from keras.losses \
+    import SparseCategoricalCrossentropy
+
+#from keras.optimizers.schedules \
+#    import ExponentialDecay
+
+from keras.optimizers \
+    import SGD
+
+from RecognitionModel.Setup     \
+    import                      \
+    input_layer,                \
+    middle_layers,              \
+    output_layer
+
+from random import SystemRandom
 
 
-class Model:
-    def __init__(self):
-        pass
+def select_random_learning_rate() -> float:
+    return SystemRandom().uniform(
+        0.000000000045,
+        0.999999999999
+    )
 
-    def __del__(self):
-        pass
+
+def select_random_steps() -> int:
+    return SystemRandom().randint(
+        10,
+        700
+    )
+
+
+class Model(
+    KerasModel
+):
+    def __init__(
+        self,
+        width: int,
+        height: int,
+        channels: int,
+
+        categories: int
+    ):
+        self.width: int = width
+        self.height: int = height
+        self.channels: int = channels
+
+        self.variation: int = 1024
+        self.categories: int = categories
+
+        super().__init__(
+            self.make_layers()
+        )
+
+        self.compilation()
+
+    def make_layers(self):
+        model_layers: list = list()
+
+        for layer in input_layer(
+                width=self.width,
+                height=self.height,
+                channels=self.channels
+        ):
+            model_layers.append(
+                layer
+            )
+
+        for layer in middle_layers(
+                channels=self.channels
+        ):
+            model_layers.append(
+                layer
+            )
+
+        for layer in output_layer(
+                classes=self.categories,
+                variation=self.variation
+        ):
+            model_layers.append(
+                layer
+            )
+
+        return model_layers
+
+    def compilation(self):
+        self.compile(
+            optimizer=SGD(
+                learning_rate=0.004
+            ),
+            loss=SparseCategoricalCrossentropy(
+                from_logits=True
+            ),
+            metrics=[
+                'accuracy'
+            ]
+        )
+
 

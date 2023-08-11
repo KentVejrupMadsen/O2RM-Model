@@ -1,0 +1,5 @@
+[default]
+entity = designermadsen
+project = O2RM
+base_url = https://api.wandb.ai
+
