@@ -1,10 +1,3 @@
-[build-system]
-requires = [
-    "setuptools>=61.0",
-    "wheel"
-]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "O2RM-Model"
 version = "0.0.2"
@@ -16,7 +9,7 @@ authors = [
 ]
 
 readme = "Readme.md"
-license= "License.md"
+license= {file='License.md'}
 
 requires-python = ">=3.7"
 classifiers = [
@@ -35,4 +28,19 @@ keywords=[
 
 [project.urls]
 "Homepage" = "https://github.com/KentVejrupMadsen/O2RM-Model"
-"Bug Tracker" = "https://github.com/KentVejrupMadsen/O2RM-Model/issues"
+"Issues" = "https://github.com/KentVejrupMadsen/O2RM-Model/issues"
+
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["O2RMModel"]
+exclude = ["tests", "notebooks"]
