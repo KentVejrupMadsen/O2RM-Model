@@ -3,3 +3,6 @@ tensorflow
 keras
 wandb
 pillow
+pytest
+numpy
+matplotlib

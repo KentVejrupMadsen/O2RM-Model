@@ -9,17 +9,17 @@ from keras.utils \
 
 import wandb
 
-from RecognitionModel.model \
-    import Model            \
+from O2RMModel.RecognitionModel.model   \
+    import Model                        \
     as RecognitionModel
 
-from keras.backend \
+from keras.backend              \
     import clear_session
 
-from wandb.keras \
+from wandb.keras                \
     import WandbMetricsLogger
 
-from keras.models \
+from keras.models               \
     import Sequential
 
 from keras.layers           \
@@ -35,10 +35,19 @@ from tensorflow.python.ops  \
 
 import tensorflow
 
+########################################################################################################################
+
 physical_devices = tensorflow.config.list_physical_devices(
     str(
         'gpu'
     ).upper()
+)
+
+selected_physical_device = physical_devices[0]
+
+tensorflow.config.experimental.set_memory_growth(
+    selected_physical_device,
+    True
 )
 
 
@@ -49,7 +58,20 @@ def generate_seed():
     )
 
 
-with tensorflow.device(physical_devices[1].name):
+device_name = str('/') + str(
+    selected_physical_device.name[
+        len('/physical_device:')
+        :
+        len(selected_physical_device.name)
+    ]
+)
+
+print(
+    'selected: ',
+    device_name
+)
+
+with tensorflow.device(device_name):
     configuration: dict = {
         'vision': {
             'width': 512,
@@ -67,13 +89,24 @@ with tensorflow.device(physical_devices[1].name):
 
     number_of_labels: int = configuration['dataset']['number of labels']
 
-    batches: int = 46
-    epochs: int = 1
+    batches: int = 58
+    epochs: int = 5
 
     wandb.init(
         entity='designermadsen',
         project='O2RM',
-        config=configuration
+        config=configuration,
+        tags=[
+            'Nvidia',
+            'Linux',
+            'Ubuntu',
+            'Development',
+            'B&W',
+            'test-driven',
+            'Bare-Metal',
+            'TensorFlow'
+        ],
+        job_type='Training'
     )
 
     # Setup of model
@@ -85,8 +118,8 @@ with tensorflow.device(physical_devices[1].name):
         categories=number_of_labels
     )
 
-    ########################################################################################################################
-    location_of_model: str = '/mnt/d/models/O2RM'
+########################################################################################################################
+    location_of_model: str = '/opt/models/O2RM'
 
     if isdir(
         location_of_model
@@ -95,12 +128,12 @@ with tensorflow.device(physical_devices[1].name):
             location_of_model
         )
 
-    ########################################################################################################################
-    location_of_dataset: str = '/mnt/c/Datasets/numbers'
+########################################################################################################################
+    location_of_dataset: str = '/opt/dataset/numbers'
 
     training_dataset, validation_dataset = image_dataset_from_directory(
         location_of_dataset,
-        validation_split=0.15,
+        validation_split=0.20,
         subset='both',
         seed=generate_seed(),
         image_size=(
@@ -110,6 +143,8 @@ with tensorflow.device(physical_devices[1].name):
         batch_size=batches
     )
 
+
+########################################################################################################################
     augmentation_generator = Sequential(
         [
             RandomFlip(
@@ -147,22 +182,21 @@ with tensorflow.device(physical_devices[1].name):
 
     autotune = tensorflow.data.AUTOTUNE
 
-    training_dataset = training_dataset.prefetch(
-        buffer_size=autotune
-    ).map(
+    training_dataset = training_dataset.map(
         lambda img, label: (augmentation_generator(img), label),
         num_parallel_calls=autotune
+    ).prefetch(
+        buffer_size=autotune
     )
 
-    validation_dataset = validation_dataset.prefetch(
-        buffer_size=autotune
-    ).map(
+    validation_dataset = validation_dataset.map(
         lambda img, label: (augmentation_generator(img), label),
         num_parallel_calls=autotune
+    ).prefetch(
+        buffer_size=autotune
     )
 
-
-    ########################################################################################################################
+########################################################################################################################
     def callbacks() -> list:
         callback_list: list = list()
 
@@ -182,7 +216,7 @@ with tensorflow.device(physical_devices[1].name):
         workers=4
     )
 
-    ########################################################################################################################
+########################################################################################################################
     model.save(
         location_of_model,
         save_format='tf',
@@ -207,10 +241,3 @@ with tensorflow.device(physical_devices[1].name):
 ########################################################################################################################
 wandb.finish()
 summary_ops_v2.flush()
-
-
-del                         \
-    model,                  \
-    training_dataset,       \
-    validation_dataset,     \
-    augmentation_generator

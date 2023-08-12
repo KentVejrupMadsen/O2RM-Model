@@ -5,8 +5,8 @@ from keras.models \
 from keras.losses \
     import SparseCategoricalCrossentropy
 
-#from keras.optimizers.schedules \
-#    import ExponentialDecay
+from keras.optimizers.schedules \
+    import ExponentialDecay
 
 from keras.optimizers \
     import SGD
@@ -17,22 +17,8 @@ from RecognitionModel.Setup     \
     middle_layers,              \
     output_layer
 
-from random import SystemRandom
-
-
-def select_random_learning_rate() -> float:
-    return SystemRandom().uniform(
-        0.000000000045,
-        0.999999999999
-    )
-
-
-def select_random_steps() -> int:
-    return SystemRandom().randint(
-        10,
-        700
-    )
-
+from random \
+    import SystemRandom
 
 class Model(
     KerasModel
@@ -90,7 +76,7 @@ class Model(
     def compilation(self):
         self.compile(
             optimizer=SGD(
-                learning_rate=0.004
+                learning_rate=0.0055
             ),
             loss=SparseCategoricalCrossentropy(
                 from_logits=True
