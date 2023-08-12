@@ -9,9 +9,9 @@ authors = [
 ]
 
 readme = "Readme.md"
-license= {file='License.md'}
+license = { file='License.md' }
 
-requires-python = ">=3.7"
+requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -19,7 +19,12 @@ classifiers = [
 ]
 
 dependencies=[
-
+    'requests',
+    'pillow',
+    'keras',
+    'tensorflow',
+    'numpy',
+    'matplotlib'
 ]
 
 keywords=[
@@ -35,10 +40,11 @@ requires = [
     "setuptools>=61.0",
     "wheel"
 ]
+
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-include-package-data = true
+include-package-data = false
 
 [tool.setuptools.packages.find]
 where = ["src"]
