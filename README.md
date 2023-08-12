@@ -1,7 +1,0 @@
-# Open Optical Recognition Model
-
-
-
-
-
-

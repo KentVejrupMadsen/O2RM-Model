@@ -1,20 +1,36 @@
 [build-system]
-requires = ["setuptools>=61.0", "keras", "wheel"]
+requires = [
+    "setuptools>=61.0",
+    "wheel"
+]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "O2RM-Model"
-version = "0.0.1"
+version = "0.0.2"
+
+description = "Model to recognise symbols & letters"
+
 authors = [
   { name="Kent vejrup Madsen", email="kent.vejrup.madsen@designermadsen.dk" },
 ]
-description = "Model to recognise symbols & letters"
-readme = "README.md"
+
+readme = "Readme.md"
+license= "License.md"
+
 requires-python = ">=3.7"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+]
+
+dependencies=[
+
+]
+
+keywords=[
+
 ]
 
 [project.urls]
