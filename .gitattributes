@@ -5,6 +5,7 @@
 
 *.md text diff=markdown eol=crlf
 *.txt text diff=text
+*.pb text diff=pb
 
 .gitignore text diff=gitignore
 .gitattributes text diff=gitattributes
