@@ -1,12 +1,15 @@
-wandb/*
+# Removal of directories
+wandb*
+.wandb*
 
-.venv/*
-.venv.*
+venv*
+.venv*
 
+.idea*
 
-.idea/*
+dist*
+.dist*
 
-dist/*
-
+# Block file types
 *.egg-info
 *.pyc
