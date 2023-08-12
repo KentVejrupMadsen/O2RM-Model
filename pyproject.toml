@@ -42,7 +42,8 @@ include-package-data = false
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["O2RMModel"]
+include = ["O2RMModel", "O2RMResources"]
 exclude = ["tests", "notebooks"]
 
 [tool.setuptools.package-data]
+O2RMResources = [""]
