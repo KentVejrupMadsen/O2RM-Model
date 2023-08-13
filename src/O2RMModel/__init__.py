@@ -1,3 +1,3 @@
 #/usr/bin/python
-from O2RM \
+from O2RMModel.O2RM \
     import Interface

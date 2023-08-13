@@ -11,10 +11,10 @@ from keras.optimizers.schedules \
 from keras.optimizers \
     import SGD
 
-from RecognitionModel.Setup     \
-    import                      \
-    input_layer,                \
-    middle_layers,              \
+from O2RMModel.RecognitionModel.Setup       \
+    import                                  \
+    input_layer,                            \
+    middle_layers,                          \
     output_layer
 
 from random \

@@ -9,10 +9,6 @@ from keras.utils \
 
 import wandb
 
-from O2RMModel.RecognitionModel.model   \
-    import Model                        \
-    as RecognitionModel
-
 from keras.backend              \
     import clear_session
 
@@ -34,6 +30,10 @@ from tensorflow.python.ops  \
   import summary_ops_v2
 
 import tensorflow
+
+from O2RMModel.RecognitionModel.model   \
+    import Model                        \
+    as RecognitionModel
 
 ########################################################################################################################
 
@@ -90,7 +90,7 @@ with tensorflow.device(device_name):
     number_of_labels: int = configuration['dataset']['number of labels']
 
     batches: int = 58
-    epochs: int = 5
+    epochs: int = 10
 
     wandb.init(
         entity='designermadsen',
@@ -143,58 +143,12 @@ with tensorflow.device(device_name):
         batch_size=batches
     )
 
-
-########################################################################################################################
-    augmentation_generator = Sequential(
-        [
-            RandomFlip(
-                'horizontal_and_vertical',
-                seed=generate_seed()
-            ),
-
-            RandomRotation(
-                factor=[-1.5, 1.5],
-                fill_mode='constant',
-                interpolation='nearest',
-                seed=generate_seed()
-            ),
-
-            RandomZoom(
-                height_factor=(-0.5, 0.5),
-                width_factor=(-0.5, 0.5),
-                fill_mode='constant',
-                interpolation='nearest',
-                seed=generate_seed(),
-            ),
-
-            RandomContrast(
-                factor=[0.2554447, 0.7554447],
-                seed=generate_seed()
-            ),
-
-            RandomBrightness(
-                factor=[0.2554447, 0.7554447],
-                value_range=[0.0, 255.0],
-                seed=generate_seed()
-            )
-        ]
-    )
-
     autotune = tensorflow.data.AUTOTUNE
 
-    training_dataset = training_dataset.map(
-        lambda img, label: (augmentation_generator(img), label),
-        num_parallel_calls=autotune
-    ).prefetch(
-        buffer_size=autotune
-    )
-
-    validation_dataset = validation_dataset.map(
-        lambda img, label: (augmentation_generator(img), label),
-        num_parallel_calls=autotune
-    ).prefetch(
-        buffer_size=autotune
-    )
+    wandb.log({
+        'training': training_dataset.class_names,
+        'validation': validation_dataset.class_names
+    })
 
 ########################################################################################################################
     def callbacks() -> list:
@@ -208,10 +162,16 @@ with tensorflow.device(device_name):
 
 
     history = model.fit(
-        training_dataset,
-        validation_data=validation_dataset,
+        training_dataset.prefetch(
+            buffer_size=autotune
+        ),
+        validation_data=validation_dataset.prefetch(
+            buffer_size=autotune
+        ),
         epochs=epochs,
+
         callbacks=callbacks(),
+
         use_multiprocessing=True,
         workers=4
     )

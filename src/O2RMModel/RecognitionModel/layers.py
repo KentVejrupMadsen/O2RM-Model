@@ -2,13 +2,13 @@
 from keras.models \
     import Sequential
 
-from RecognitionModel.setup.input \
+from O2RMModel.RecognitionModel.setup.input \
     import input_layer
 
-from RecognitionModel.setup.middle \
+from O2RMModel.RecognitionModel.setup.middle \
     import middle_layers
 
-from RecognitionModel.setup.output \
+from O2RMModel.RecognitionModel.setup.output \
     import output_layer
 
 
