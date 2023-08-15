@@ -1,0 +1,16 @@
+{
+    "workbench.colorTheme": "Default Dark+",
+    "breadcrumbs.filePath": "last",
+    "python.analysis.inlayHints.pytestParameters": true,
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "files.autoSave": "afterDelay",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.downloadStubs": true,
+    "python.analysis.inlayHints.callArgumentNames": true,
+    "python.analysis.logLevel": "Error",
+    "python.globalModuleInstallation": false,
+    "python.languageServer": "Pylance"
+}
